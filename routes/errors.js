@@ -282,7 +282,7 @@ router.get('/uri-error', (req, res) => {
 router.get('/syntax-error-runtime', (req, res) => {
   // Syntax error thrown inside runtime eval()
   // eslint-disable-next-line no-eval
-  eval('const invalid = = = 123;');
+    eval('const valid = 123;');
 });
 
 // 7. JSON Parse SyntaxError
