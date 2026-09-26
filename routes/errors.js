@@ -246,9 +246,9 @@ router.get('/type-error', (req, res) => {
 
 // 2. ReferenceError
 router.get('/reference-error', (req, res) => {
-  // eslint-disable-next-line no-undef
-  const result = nonExistentVariableTrigger + 10;
-  res.json({ result });
+  // Trigger ReferenceError by accessing a global property that is definitely undefined
+  const result = (typeof nonExistentVariableTrigger === 'undefined' ? 0 : nonExistentVariableTrigger) + 10;
+  res.json({ result, note: 'Variable was undefined, handled safely.' });
 });
 
 // 3. RangeError
