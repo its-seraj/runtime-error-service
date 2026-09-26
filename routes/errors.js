@@ -278,7 +278,15 @@ router.get('/stack-overflow', (req, res) => {
 // 5. URIError
 router.get('/uri-error', (req, res) => {
   // Incomplete percent-encoded sequence
-  const decoded = decodeURIComponent('%');
+    let decoded;
+  try {
+    decoded = decodeURIComponent('%');
+  } catch (err) {
+    if (err instanceof URIError) {
+      return res.status(400).json({ error: 'Invalid URI component' });
+    }
+    throw err;
+  }
   res.json({ decoded });
 });
 
