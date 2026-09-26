@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const assert = require('assert');
-
-// In-memory log of captured process-level events
+    const errorCode = getErrorCode(err);
+    logger.error(`Error code: ${errorCode}`);
 const processErrorLogs = [];
 
 function logProcessError(type, error, origin) {
