@@ -239,8 +239,12 @@ router.get('/type-error', (req, res) => {
     const notAFunction = 42;
     notAFunction(); // TypeError: notAFunction is not a function
   } else {
-    const nullObject = null;
-    nullObject.triggerError(); // TypeError: Cannot read properties of null (reading 'triggerError')
+        const nullObject = null;
+    if (nullObject) {
+      nullObject.triggerError();
+    } else {
+      res.status(400).json({ error: 'Null object cannot trigger error' });
+    }
   }
 });
 
