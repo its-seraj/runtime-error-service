@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js Runtime Error Testing Lab</title>
+  <meta name="description" content="Interactive testing playground and backend service for demonstrating various JavaScript and Node.js runtime errors, stack traces, and unhandled exceptions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <header class="app-header">
+    <div class="header-left">
+      <div class="badge-status">
+        <span class="status-indicator" id="serverStatusDot"></span>
+        <span id="serverStatusText">Connecting...</span>
+      </div>
+      <h1 class="logo-title">
+        <span class="icon">⚡</span> Node.js Runtime Error Lab
+      </h1>
+      <p class="subtitle">Comprehensive backend service reproducing native JavaScript, V8, Node.js system, and async runtime errors.</p>
+    </div>
+    <div class="header-right">
+      <div class="stat-card" id="systemMetrics">
+        <div class="stat-item">
+          <span class="stat-label">Node Version</span>
+          <span class="stat-val" id="metricNodeVer">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Heap Used</span>
+          <span class="stat-val" id="metricHeap">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Uptime</span>
+          <span class="stat-val" id="metricUptime">-</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Category Filter Bar -->
+    <section class="filter-section">
+      <div class="filter-buttons" id="categoryFilters">
+        <button class="filter-btn active" data-category="all">All Errors</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by error name, keyword, or category..." />
+      </div>
+    </section>
+
+    <!-- Error Grid -->
+    <div class="workspace-grid">
+      <!-- Left Column: Error Catalog Cards -->
+      <section class="catalog-column">
+        <div class="section-title-bar">
+          <h2>Runtime Error Scenarios (<span id="errorCount">0</span>)</h2>
+          <span class="hint">Click "Trigger" to test any endpoint</span>
+        </div>
+        <div class="cards-container" id="cardsContainer">
+          <!-- Cards populated via app.js -->
+        </div>
+      </section>
+
+      <!-- Right Column: Live Inspector & Console Output -->
+      <aside class="inspector-column">
+        <div class="inspector-card">
+          <div class="inspector-header">
+            <h3>Response Inspector</h3>
+            <div class="inspector-actions">
+              <span class="status-pill" id="responseStatusPill">Idle</span>
+              <button class="action-btn-sm" id="copyResponseBtn" title="Copy response JSON">Copy</button>
+              <button class="action-btn-sm" id="clearResponseBtn" title="Clear panel">Clear</button>
+            </div>
+          </div>
+          <div class="inspector-meta" id="inspectorMeta">
+            <span class="meta-label">Endpoint: <strong id="currentEndpoint">-</strong></span>
+            <span class="meta-label">Latency: <strong id="requestLatency">-</strong></span>
+          </div>
+          <pre class="json-viewer" id="jsonViewer"><code>// Trigger any error from the left panel to inspect the server's runtime stack trace and JSON response.</code></pre>
+        </div>
+
+        <!-- Captured Process Errors Panel -->
+        <div class="process-logs-card">
+          <div class="inspector-header">
+            <h3>Captured Process Events (Async & Background)</h3>
+            <div class="inspector-actions">
+              <button class="action-btn-sm" id="refreshLogsBtn">Refresh</button>
+              <button class="action-btn-sm" id="clearLogsBtn">Clear</button>
+            </div>
+          </div>
+          <p class="logs-description">Monitors <code>uncaughtException</code> and <code>unhandledRejection</code> events caught by Node.js process listeners.</p>
+          <div class="process-logs-list" id="processLogsList">
+            <div class="empty-logs">No process-level background errors recorded yet.</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>Node.js Runtime Error Service &bull; Local server running on Express &bull; Explore full REST endpoints via <code>/api/errors</code></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
